@@ -1,0 +1,23 @@
+---
+
+- name: Create admin group
+  group:
+    name: admin
+    state: present
+
+- name: Ensure admin group can sudo without password
+  lineinfile:
+    line: "%admin    ALL=(ALL)    NOPASSWD:ALL"
+    dest: /etc/sudoers
+    insertafter: EOF
+    validate: "visudo -cf %s"
+
+- name: Creat ferko user
+  user:
+    name: ferko
+    state: present
+    update_password: on_create
+    shell: /bin/bash
+    groups:
+      - admin
+    append: true

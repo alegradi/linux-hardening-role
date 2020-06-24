@@ -1,0 +1,12 @@
+---
+
+- name: Increase bash history and add timestamps
+  blockinfile:
+    path: /etc/bashrc
+    create: true
+    state: present
+    block: |
+      export HISTTIMEFORMAT="%F - %H:%M:%S "
+      export HISTFILESIZE=50000
+      export HISTSIZE=50000
+    insertafter: EOF

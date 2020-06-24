@@ -1,0 +1,7 @@
+---
+
+- name: Manage ferko authorized_keys
+  authorized_key:
+    user: ferko
+    state: present
+    key: "{{ linux_hardening_keys.ferko }}"

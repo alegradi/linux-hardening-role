@@ -1,0 +1,34 @@
+---
+- name: Include SSH pubkey dictionary
+  include_vars: linux_hardening_keys.yml
+
+- name: Setup User and Group
+  include_tasks: users_and_groups.yml
+
+- name: Set up SSH Keys
+  include_tasks: set_up_keys.yml
+
+- name: Disable SSH as root
+  lineinfile:
+    dest: /etc/sshd/sshd_config
+    state: present
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    insertbefore: "^Match"
+    firstmatch: yes
+  become: true
+  notify: restart sshd
+
+- name: SSH bind to primary IP only
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    state: present
+    regexp: "^ListenAddress"
+    line: "ListenAddress {{ ansible_default_ipv4.address }}"
+    insertbefore: "^Match"
+    firstmatch: yes
+  become: true
+  notify: restart sshd
+
+- name: Increase bash history and add timestamps
+  include_tasks: bash_history.yml

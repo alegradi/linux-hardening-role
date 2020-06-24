@@ -1,0 +1,4 @@
+---
+
+linux_hardening_keys:
+  ferko: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1vfky+u9eNwRcnQ7QVBUTcQ9taBstZIElO8YPNPoG2 ferko @ hetznerdev
