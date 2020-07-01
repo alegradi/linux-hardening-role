@@ -8,16 +8,17 @@
 - name: Set up SSH Keys
   include_tasks: set_up_keys.yml
 
-- name: Disable SSH as root
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    state: present
-    regexp: "^PermitRootLogin"
-    line: "PermitRootLogin no"
-    insertbefore: "^Match"
-    firstmatch: yes
-  become: true
-  notify: restart sshd
+## Disabling this while I look into if this locks us out
+#- name: Disable SSH as root
+#  lineinfile:
+#    dest: /etc/ssh/sshd_config
+#    state: present
+#    regexp: "^PermitRootLogin"
+#    line: "PermitRootLogin no"
+#    insertbefore: "^Match"
+#    firstmatch: yes
+#  become: true
+#  notify: restart sshd
 
 - name: SSH bind to primary IP only
   lineinfile:
